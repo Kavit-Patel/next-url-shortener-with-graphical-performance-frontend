@@ -4,7 +4,7 @@ Welcome to the frontend of the URL Shortener project. This application allows us
 
 ## Live Deployment
 
-Frontend deployed at ->
+Frontend deployed at ->[https://next-url-shortener-with-graphical-performance-frontend.vercel.app/](https://next-url-shortener-with-graphical-performance-frontend.vercel.app/)
 This project's backend is deployed at: [https://nest-url-shortener.onrender.com](https://nest-url-shortener.onrender.com)
 
 🚀 Features
@@ -34,6 +34,7 @@ To run the application, create a `.env` file in the root directory with the foll
 
 `env`
 NEXT_PUBLIC_BACKEND_URL="Your backend url"
+NEXT_PUBLIC_GOOGLE_AUTH_URL = Your-backend-url/auth/google
 
 ## Installation
 
