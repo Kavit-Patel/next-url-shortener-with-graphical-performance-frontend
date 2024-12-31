@@ -45,6 +45,40 @@ export const useUserLogin = () => {
   });
 };
 
+export const useSimpleUserLogin = () => {
+  return useMutation<
+    IUser,
+    AxiosError,
+    {
+      email: string;
+      password: string;
+    }
+  >({
+    mutationKey: ["user"],
+    mutationFn: async ({
+      email,
+      password,
+    }: {
+      email: string;
+      password: string;
+    }) => {
+      try {
+        const { data } = await axios.post(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/localuser`,
+          { email, password },
+          {
+            withCredentials: true,
+          }
+        );
+        console.log("USER D ", data);
+        return data;
+      } catch (error) {
+        console.log("Error :", error);
+      }
+    },
+  });
+};
+
 export const useShortUrl = () => {
   return useMutation<
     IShortUrl,
