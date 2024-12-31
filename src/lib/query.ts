@@ -5,13 +5,12 @@ import { api, errroMessage } from "./axios";
 import { IShortUrl, IUser } from "@/types";
 import toast from "react-hot-toast";
 
-console.log("axios authuser calling ", process.env.NEXT_PUBLIC_BACKEND_URL);
 export const useUserLogin = () => {
   return useQuery<IUser, AxiosError>({
     queryKey: ["user"],
     queryFn: async () => {
       try {
-        const { data } = await axios.get(
+        const data = await axios.get(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/user`,
           {
             withCredentials: true,
@@ -21,61 +20,12 @@ export const useUserLogin = () => {
             },
           }
         );
-        console.log("USER D ", data);
-        return data;
-        // const req = await fetch(
-        //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/user`,
-        //   {
-        //     credentials: "include",
-        //     method: "GET",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //   }
-        // );
-        // const res = await req.json();
-        // console.log("fetch req . json ", res);
-        // console.log("DAta ", res);
-        // return res;
+        return data.data;
       } catch (error) {
         console.log("Error :", error);
       }
     },
     refetchOnWindowFocus: false,
-  });
-};
-
-export const useSimpleUserLogin = () => {
-  return useMutation<
-    IUser,
-    AxiosError,
-    {
-      email: string;
-      password: string;
-    }
-  >({
-    mutationKey: ["user"],
-    mutationFn: async ({
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    }) => {
-      try {
-        const { data } = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/localuser`,
-          { email, password },
-          {
-            withCredentials: true,
-          }
-        );
-        console.log("USER D ", data);
-        return data;
-      } catch (error) {
-        console.log("Error :", error);
-      }
-    },
   });
 };
 

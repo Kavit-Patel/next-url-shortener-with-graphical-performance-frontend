@@ -19,7 +19,6 @@ const Home = () => {
     }
     mutateShortUrl({ longUrl, userId: user.id });
   };
-  console.log("User ", user);
   return (
     <div className="min-h-[calc(100vh-64px)] bg-gradient-to-r from-sky-900 to-violet-900 flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6">

@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserLogin, useUserLogOut } from "@/lib/query";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { MdMenu } from "react-icons/md";
 import Loader from "./Loader";
 import toast from "react-hot-toast";
@@ -9,10 +9,13 @@ import toast from "react-hot-toast";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
 
-  const { data: user } = useUserLogin();
+  const { data: user, refetch } = useUserLogin();
   const { mutateAsync, isPending: isLogOutPending } = useUserLogOut();
-
+  useEffect(() => {
+    refetch();
+  }, [pathname, refetch]);
   const handleLogout = async () => {
     await mutateAsync();
     router.push("/");
