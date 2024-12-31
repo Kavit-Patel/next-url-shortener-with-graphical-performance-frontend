@@ -1,20 +1,44 @@
 "use client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { api, errroMessage } from "./axios";
 import { IShortUrl, IUser } from "@/types";
 import toast from "react-hot-toast";
 
+console.log("axios authuser calling ", process.env.NEXT_PUBLIC_BACKEND_URL);
 export const useUserLogin = () => {
   return useQuery<IUser, AxiosError>({
     queryKey: ["user"],
     queryFn: async () => {
       try {
-        const { data } = await api.get("auth/user");
+        const { data } = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/user`,
+          {
+            withCredentials: true,
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("USER D ", data);
         return data;
+        // const req = await fetch(
+        //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/user`,
+        //   {
+        //     credentials: "include",
+        //     method: "GET",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //   }
+        // );
+        // const res = await req.json();
+        // console.log("fetch req . json ", res);
+        // console.log("DAta ", res);
+        // return res;
       } catch (error) {
         console.log("Error :", error);
-        return null;
       }
     },
     refetchOnWindowFocus: false,

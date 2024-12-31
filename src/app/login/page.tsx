@@ -1,3 +1,4 @@
+"use client";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 
 const LoginPage = () => {
