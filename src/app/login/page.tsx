@@ -7,11 +7,17 @@ const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { mutateAsync, data } = useSimpleUserLogin();
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!email || !password) {
       alert("enter email password ");
     }
-    await mutateAsync({ email, password });
+    try {
+      const data = await mutateAsync({ email, password });
+      console.log("IN login page ", data);
+    } catch (error) {
+      console.log("Error on page ", error);
+    }
   };
   console.log("USER SIMPLE ", data);
   return (
